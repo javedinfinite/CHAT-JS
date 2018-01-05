@@ -1,7 +1,10 @@
 {
-  "name": "wsserver",
+  "name": "CHAT-JS",
   "version": "1.0.0",
-  "description": "mo desc",
+  "engines": {
+    "node": "6.11.0"
+  },
+  "description": "A simple chat application",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
