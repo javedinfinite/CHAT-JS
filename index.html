@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Websocket</title>
+	<style>
+		div#d1{
+			width: 800px;
+			height: 300px;
+			margin: 0 auto;
+			border: 5px solid black;
+			border-radius: 7px;
+			overflow:auto;
+			background-color:yellowgreen;
+			 			
+		}
+		div#send{
+			width: 235px;
+			margin: 30px auto;
+		}
+		div#username{
+			color:blue;
+			margin:0 auto;
+			width:400px;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		var r=Math.floor(Math.random(0,255)*256);var g=Math.floor(Math.random(0,255)*256);var b=Math.floor	
+		(Math.random(0,255)*256);
+		
+		var d1=document.getElementById('d1');
+		//temp.innerHTML="r="+r+"g="+g+"b="+b+"<br>";
+		d1.style.color="rgb("+r+","+g+","+b+")";
+		 
+		var r1=255-r;var g1=255-g;var b1=255-b;
+		d1.style.backgroundColor="rgb("+r1+","+g1+","+b1+")";
+	
+	</script>
+	<div>
+	<div id="username"></div>
+	<div id="d1"></div>
+	<div id="send">
+		<input type="text" placeholder="Your Message Here" id="t">
+		<button>Send Message</button><br><br>
+		<button onclick="changeback()">Change Background Colour</button><br><br>
+		<button onclick="changefont()">Change Font Colour</button>
+	</div>
+	<>
+	<script>
+		var name = prompt("what is your name?");
+		document.getElementById("username").innerHTML="Your Name :"+name;
+		//After Opening a connection
+		var sock = new WebSocket("ws://localhost:5001");
+		
+		sock.onopen = function(){
+			sock.send(JSON.stringify({
+				"type": "name",//variable name:value of the variable
+				"data": name			
+			}));
+		}			 
+		
+		var d1 = document.getElementById("d1");
+		// When data is received
+		sock.onmessage = function(event){
+			console.log(event);
+			var json = JSON.parse(event.data);
+			d1.innerHTML += json.name+":"+json.data+"<br>";
+		}
+		//whenk button is clicked
+		document.querySelector('button').onclick = function(){
+			var text= document.getElementById('t').value;
+			sock.send(JSON.stringify({
+				"type": "message",
+				"data": text 			
+			}));
+			//Displaying the message in box sent by user to server//so that if client is not online then 				also text willl appear in the box
+d1.innerHTML +="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<b>"+"you: "+text+"<br>"+"</b>";
+			 
+		}
+		 //document.getElementById("d1").style.textAlign="right"; 
+		function getRandomInt(min, max) {
+  		return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+		function changeback(){
+			var r=Math.floor(Math.random(0,255)*256);var g=Math.floor(Math.random(0,255)*256);
+			var b=Math.floor(Math.random(0,255)*256);
+			d1.style.backgroundColor="rgb("+r+","+g+","+b+")";	
+		}
+		function changefont(){
+			var r=Math.floor(Math.random(0,255)*256);var g=Math.floor(Math.random(0,255)*256);
+			var b=Math.floor(Math.random(0,255)*256);
+			d1.style.color="rgb("+r+","+g+","+b+")";	
+		}
+	</script>
+</body>
+</html>
+
+
