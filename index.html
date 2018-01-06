@@ -52,7 +52,7 @@
 		var name = prompt("what is your name?");
 		document.getElementById("username").innerHTML="Your Name :"+name;
 		//After Opening a connection
-		var sock = new WebSocket("ws://localhost:5001");
+		var sock = new WebSocket("https://gentle-beyond-84524.herokuapp.com");
 		
 		sock.onopen = function(){
 			sock.send(JSON.stringify({

@@ -1,7 +1,7 @@
 var http = require('http');
 var fs = require('fs');
 var  server = require('ws').Server;
-var s  = new server({port:5001});//port for socket
+var s  = new server({port:5001 || process.env.PORT});//port for socket
 
  
  var temp = http.createServer(function (req, resp) {
