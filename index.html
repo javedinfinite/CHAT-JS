@@ -47,17 +47,14 @@
 		<button onclick="changeback()">Change Background Colour</button><br><br>
 		<button onclick="changefont()">Change Font Colour</button>
 	</div>
-	<div id="test">test</div>
+	<>
 	<script>
 		var name = prompt("what is your name?");
 		document.getElementById("username").innerHTML="Your Name :"+name;
 		//After Opening a connection
-		/*var HOST = location.origin.replace(/^http/, 'ws');
-		var sock = new WebSocket(HOST);*/
 		var sock = new WebSocket("ws://localhost:5001");
 		
 		sock.onopen = function(){
-			document.getElementById("test").innerHTML="success connection";
 			sock.send(JSON.stringify({
 				"type": "name",//variable name:value of the variable
 				"data": name			
@@ -86,14 +83,12 @@ d1.innerHTML +="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs
 		function getRandomInt(min, max) {
   		return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
-		function changeback(){d
-			//var d1 = document.getElementById("d1");
+		function changeback(){
 			var r=Math.floor(Math.random(0,255)*256);var g=Math.floor(Math.random(0,255)*256);
 			var b=Math.floor(Math.random(0,255)*256);
 			d1.style.backgroundColor="rgb("+r+","+g+","+b+")";	
 		}
 		function changefont(){
-			//var d1 = document.getElementById("d1");
 			var r=Math.floor(Math.random(0,255)*256);var g=Math.floor(Math.random(0,255)*256);
 			var b=Math.floor(Math.random(0,255)*256);
 			d1.style.color="rgb("+r+","+g+","+b+")";	
